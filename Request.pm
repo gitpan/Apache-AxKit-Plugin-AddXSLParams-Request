@@ -6,7 +6,7 @@ use Apache::Cookie;
 use Apache::Request;
 use Apache::URI;
 use vars qw($VERSION);
-$VERSION = '1.00';
+$VERSION = '1.01';
 
 
 sub handler {
@@ -23,7 +23,8 @@ sub handler {
             if ( $h eq 'Cookie' ) {
                 my $cookies = Apache::Cookie::parse( $headers->{$h} );
                 foreach my $oreo ( keys( %{$cookies} ) ) {
-                    $cgi->parms->set('request.cookie.' . $oreo => $cookies->{$oreo}->value );
+                    $cgi->parms->set('request.cookie.' . $oreo => $cookies->{$oreo}->value ) if defined( $cookies->{$oreo}->value );
+
                 }
             }
         
@@ -35,7 +36,8 @@ sub handler {
     elsif ( grep { $_ eq 'Cookies' } @allowed_groups ) {
         my $cookies = Apache::Cookie::parse( $r->header_in('Cookie') );
         foreach my $oreo ( keys( %{$cookies} ) ) {
-            $cgi->parms->set('request.cookie.' . $oreo => $cookies->{$oreo}->value );
+            $cgi->parms->set('request.cookie.' . $oreo => $cookies->{$oreo}->value ) if defined( $cookies->{$oreo}->value );
+
         }
     }  
        

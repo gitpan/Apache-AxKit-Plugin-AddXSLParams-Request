@@ -1,5 +1,9 @@
 Revision history for Perl extension Apache::AxKit::Plugin::AddXSLParams::Request.
 
+1.01  Feb 2003
+	- mac on #axkit: cover cases for broken cookies. 
+1.00  Mar 2002
+        - public release
 0.01  Thu Mar 14 13:39:02 2002
 	- original version; created by h2xs 1.19
 

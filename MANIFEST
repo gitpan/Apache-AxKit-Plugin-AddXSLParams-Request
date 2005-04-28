@@ -5,3 +5,4 @@ README
 Request.pm
 t/01basic.t
 examples/paramtest.xsl
+META.yml                                 Module meta-data (added by MakeMaker)

@@ -33,6 +33,7 @@
 <!-- "common" params -->
 <xsl:param name="request.method">--</xsl:param>
 <xsl:param name="request.uri">--</xsl:param>
+<xsl:param name="request.filename">--</xsl:param>
 <xsl:param name="request.path_info">--</xsl:param>
 <!-- end "common" params -->
 
@@ -47,6 +48,9 @@
       </tr>
       <tr>
        <td>request.method</td><td><xsl:value-of select="$request.method"/></td>
+      </tr>
+      <tr>
+       <td>request.filename</td><td><xsl:value-of select="$request.path_info"/></td>
       </tr>
       <tr>
        <td>request.path_info</td><td><xsl:value-of select="$request.path_info"/></td>

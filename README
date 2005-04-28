@@ -1,6 +1,6 @@
 NAME
-    Apache::AxKit::Plugin::AddXSLParams::Request - Provides a way to
-    pass info from the Apache::Request to XSLT params
+    Apache::AxKit::Plugin::AddXSLParams::Request - Provides a way to pass
+    info from the Apache::Request to XSLT params
 
 SYNOPSIS
       # in httpd.conf or .htaccess
@@ -9,43 +9,41 @@ SYNOPSIS
 
 DESCRIPTION
     A strong contender for longest package name of the year,
-    Apache::AxKit::Plugin::AddXSLParams::Request offers a way to
-    make information about the current client request (cookies,
-    headers, uri info) available as params within XSLT stylesheets.
+    Apache::AxKit::Plugin::AddXSLParams::Request offers a way to make
+    information about the current client request (cookies, headers, uri
+    info) available as params within XSLT stylesheets.
 
 CONFIGURATION
-    This plugin is added to the request cycle by using the
-    AxAddPlugin directive.
+    This plugin is added to the request cycle by using the AxAddPlugin
+    directive.
 
       AxAddPlugin Apache::AxKit::Plugin::AddXSLParams::Request
-      
-    This package introduces the B<AxAddXSLParamGroups> config option, which takes a space-seperated list of 'tags'
-    (see B<PARAM GROUPS> below) that are used to add groups of related information to the param list. Note
-    that this is I<not> a first-class config directive and must be added via B<PerlSetVar>:
+  
+    This package introduces the AxAddXSLParamGroups config option, which
+    takes a space-seperated list of 'tags' (see PARAM GROUPS below) that are
+    used to add groups of related information to the param list. Note that
+    this is *not* a first-class config directive and must be added via
+    PerlSetVar:
 
       PerlSetVar AxAddXSLParamGroups "List Of Groups"
 
 PARAM GROUPS
-    In an effort to provide an easy-to-setup way to make external
-    data->XSL param mapping work while letting folks choose only the
-    types of info that they are interested in, sets of related
-    information are grouped with an identifying 'tag'. This tag is
-    passed in via the AxAddXSLParamGroups config directive which is
-    used to determine which groups of info will be passed along as
-    params. For example:
+    In an effort to provide an easy-to-setup way to make external data->XSL
+    param mapping work while letting folks choose only the types of info
+    that they are interested in, sets of related information are grouped
+    with an identifying 'tag'. This tag is passed in via the
+    AxAddXSLParamGroups config directive which is used to determine which
+    groups of info will be passed along as params. For example:
 
       AxAddXSLParamGroups "Request-Common HTTPHeaders VerboseURI"
 
-    will configure this package to include the sets of data
-    identified by the Request-Common, HTTPHeaders, and VerboseURI
-    tags.
+    will configure this package to include the sets of data identified by
+    the Request-Common, HTTPHeaders, and VerboseURI tags.
 
-    The param groups that this package implements are detailed
-    below.
+    The param groups that this package implements are detailed below.
 
 Request-Common
-    A minimal set of common parameters extracted from the request
-    instance.
+    A minimal set of common parameters extracted from the request instance.
 
     Param Prefix: request.*
 
@@ -60,12 +58,16 @@ Request-Common
     * path_info
         Additional path information.
 
+    * filename
+        The file name associated with the current request.
+
     Examples:
 
       <xsl:param name="request.method"/>
       <xsl:param name="request.uri"/>
       <xsl:param name="request.path_info"/>
-
+      <xsl:param name="request.filename"/>
+  
 HTTPHeaders
     Provides access to HTTP headers sent by the client.
 
@@ -73,16 +75,16 @@ HTTPHeaders
 
     Implemented Fields:
 
-    The headers sent during a request vary somewhat from client to
-    client; this group will contain *all* the headers returned by
-    the request object's headers_in() method using the convention:
-    request.headers.*fieldname* where *fieldname* is name of the
-    given HTTP header field, forced to lower case.
+    The headers sent during a request vary somewhat from client to client;
+    this group will contain *all* the headers returned by the request
+    object's headers_in() method using the convention:
+    request.headers.*fieldname* where *fieldname* is name of the given HTTP
+    header field, forced to lower case.
 
-    If any HTTP Cookies are found in the headers, they will be
-    parsed and values available as XSLT params using the naming
-    convention: request.cookies.*yourcookiename*. See the Cookies
-    group below for an alternative way to access cookies.
+    If any HTTP Cookies are found in the headers, they will be parsed and
+    values available as XSLT params using the naming convention:
+    request.cookies.*yourcookiename*. See the Cookies group below for an
+    alternative way to access cookies.
 
     More common headers include:
 
@@ -97,6 +99,7 @@ HTTPHeaders
     * user-agent
     * from
     * referer
+
     Examples:
 
       <xsl:param name="request.headers.accept-language"/>
@@ -105,9 +108,9 @@ HTTPHeaders
       <xsl:param name="request.headers.referer"/>
 
 Cookies
-    Provides an *alternative* way to access the HTTP Cookies header
-    for those folks that want to get at the cookie data but don't
-    want to pull in all of the other HTTP headers.
+    Provides an *alternative* way to access the HTTP Cookies header for
+    those folks that want to get at the cookie data but don't want to pull
+    in all of the other HTTP headers.
 
     Param Prefix: request.cookies.*
 
@@ -123,8 +126,8 @@ Cookies
       <xsl:param name="request.cookies.fortune"/>
 
 VerboseURI
-    Offers fine-grained access to the URI requested (via
-    Apache::URI's parse_uri() method.
+    Offers fine-grained access to the URI requested (via Apache::URI's
+    parse_uri() method.
 
     Param Prefix: request.uri.*
 
@@ -140,6 +143,7 @@ VerboseURI
     * rpath
     * query
     * fragment
+
     Examples:
 
       <xsl:param name="request.uri.path"/>

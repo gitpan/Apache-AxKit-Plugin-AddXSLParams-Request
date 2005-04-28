@@ -6,7 +6,7 @@ use Apache::Cookie;
 use Apache::Request;
 use Apache::URI;
 use vars qw($VERSION);
-$VERSION = '1.01';
+$VERSION = '1.02';
 
 
 sub handler {
@@ -44,6 +44,7 @@ sub handler {
     # Here's the "Request-Common" group
     if ( grep { $_ eq 'Request-Common' } @allowed_groups ) {
         $cgi->parms->set('request.uri' => $r->uri );
+        $cgi->parms->set('request.filename' => $r->filename);
         $cgi->parms->set('request.method' => $r->method);
         $cgi->parms->set('request.path_info' => $r->path_info) if length( $r->path_info ) > 0;
     }
@@ -130,6 +131,10 @@ The request method (POST, GET, etc.).
 
 Additional path information.
 
+=item * filename
+
+The file name associated with the current request.
+
 =back
 
 B<Examples>:
@@ -137,7 +142,8 @@ B<Examples>:
   <xsl:param name="request.method"/>
   <xsl:param name="request.uri"/>
   <xsl:param name="request.path_info"/>
-
+  <xsl:param name="request.filename"/>
+  
 =head1 B<HTTPHeaders>
 
 Provides access to HTTP headers sent by the client.
